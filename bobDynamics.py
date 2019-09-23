@@ -1,9 +1,9 @@
-import numpy as np 
+import numpy as np
 import random
 import bobParam as P
 
 
-class msdDynamics:
+class bobDynamics:
     '''
         Model the physical system
     '''
@@ -11,7 +11,9 @@ class msdDynamics:
     def __init__(self):
         # Initial state conditions
         self.state = np.matrix([[P.z0],          # z initial position
-                                [P.zdot0]])       # zdot initial velocity
+                                [P.theta0],       # theta initial
+                                [P.zdot0],       # zdot initial velocity
+                                [P.thetadot0]])      # thetadot initial
         #################################################
         # The parameters for any physical system are never known exactly.  Feedback
         # systems need to be designed to be robust to this uncertainty.  In the simulation
@@ -20,9 +22,11 @@ class msdDynamics:
         # may change by up to 20%.  A different parameter value is chosen every time the simulation
         # is run.
         alpha = 0.2  # Uncertainty parameter
-        self.m = P.m * (1+2*alpha*np.random.rand()-alpha)  # Mass of the block, kg
-        self.k = P.k * (1+2*alpha*np.random.rand()-alpha)   # Spring constant,
-        self.b = P.b * (1+2*alpha*np.random.rand()-alpha)  # Damping coefficient, Ns
+        self.m1 = P.m1 * (1+2*alpha*np.random.rand()-alpha)  # Mass of the ball, kg
+        self.m2 = P.m2 * (1+2*alpha*np.random.rand()-alpha)  # Mass of the beam, kg
+        self.length = P.length * (1+2*alpha*np.random.rand()-alpha)  # length of the beam, m
+        self.b = P.b * (1+2*alpha*np.random.rand()-alpha)  # Damping coefficient
+        self.g = P.g  # Acceleration due to gravity
 
     def propagateDynamics(self, u):
         '''
@@ -44,13 +48,18 @@ class msdDynamics:
         # re-label states and inputs for readability
         F = u[0]
         z = state.item(0)
-        zdot = state.item(1)
-        zddot = 1/self.m * (F - self.b * zdot - self.k*z)
+        theta = state.item(1)
+        zdot = state.item(2)
+        thetadot = state.item(3)
+        zddot = 1/self.m1 * (F * np.sin(theta) - self.b * zdot + z * thetadot**2 - self.m1 * self.g * np.sin(theta))
+        thetaddot = 1/(self.m1 * z**2 + self.m2 * (self.length**2)/3) * (self.length * F * np.cos(theta) - self.b*thetadot - self.g * thetadot * np.cos(theta) * (self.m1 * z + self.m2 * self.length/2))
         # The equations of motion.
         x1dot = zdot
-        x2dot = zddot
+        x2dot = thetadot
+        x3dot = zddot
+        x4dot = thetaddot
         # build xdot and return
-        xdot = np.matrix([[x1dot], [x2dot]])
+        xdot = np.matrix([[x1dot], [x2dot], [x3dot], [x4dot]])
         return xdot
 
     def outputs(self):
@@ -60,10 +69,12 @@ class msdDynamics:
         '''
         # re-label states for readability
         z = self.state.item(0)
+        theta = self.state.item(1)
         # add Gaussian noise to outputs
         z_m = z + random.gauss(0, 0.01)
+        theta_m = theta + random.gauss(0, 0.01)
         # return measured outputs
-        return [z_m]
+        return [z_m, theta_m]
 
     def states(self):
         '''

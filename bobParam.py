@@ -2,19 +2,23 @@
 import numpy as np
 import control as cnt
 
+# General physical parameters
+g = 9.81    # m/s^2
+
 # Physical parameters of the ball
 m1 = 5      # mass of the ball
 d = 1       # diameter of the ball (m)
 
 # Physical parameters of the beam
 m2 = 10     # mass of the beam
+b = 0.5     # damping coefficient
 length = 4  # length of the beam
 
 # Animation params
 height = 0.125   # width of the beam
 
 # Initial conditions
-z0 = 4          # initial displacement (m)
+z0 = 3.5          # initial displacement (m)
 zdot0 = 0       # initial velocity (m/s)
 theta0 = 0      # initial angular position (rad)
 thetadot0 = 0   # initial angular velocity (rad/s)
