@@ -4,17 +4,17 @@ import control as cnt
 
 # Physical parameters of the ball
 m1 = 5      # mass of the ball
-d = 0.5       # diameter of the ball (m)
+d = 1       # diameter of the ball (m)
 
 # Physical parameters of the beam
 m2 = 10     # mass of the beam
-length = 2  # length of the beam
+length = 4  # length of the beam
 
 # Animation params
 height = 0.125   # width of the beam
 
 # Initial conditions
-z0 = 1          # initial displacement (m)
+z0 = 4          # initial displacement (m)
 zdot0 = 0       # initial velocity (m/s)
 theta0 = 0      # initial angular position (rad)
 thetadot0 = 0   # initial angular velocity (rad/s)

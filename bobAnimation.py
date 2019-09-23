@@ -17,8 +17,8 @@ class bobAnimation:
         self.length = P.length        # block width
         self.height = P.height      # block height
         self.ballD = P.d
-        plt.axis([-4*self.length, 4*self.length, -0.1, 4*self.height]) # Change the x,y axis limits
-        plt.plot([-4*self.length, 4*self.length], [0,0], 'b--')    # Draw a base line
+        plt.axis([-3*self.length, 3*self.length, -0.1, 3*self.height])  # Change the x,y axis limits
+        plt.plot([-3*self.length, 3*self.length], [0,0], 'b--')    # Draw a base line
         plt.xlabel('z')
 
         # Draw vtol is the main function that will call the functions:
@@ -53,8 +53,8 @@ class bobAnimation:
             self.handle[0].set_ydata(Y)
 
     def draw_ball(self, z, theta):
-        x = z * np.cos(theta)    # x coordinate of center
-        y = z * np.sin(theta)   # y coordinate of center
+        x = z * np.cos(theta) - self.ballD/1.5 * np.sin(theta)    # x coordinate of center
+        y = z * np.sin(theta) + self.ballD/1.5 * np.cos(theta)  # y coordinate of center
         xy = (x, y)  # Center of block
 
         # When the class is initialized, a Rectangular patch object will
@@ -67,16 +67,17 @@ class bobAnimation:
                 radius=self.ballD/2, fill=True,
                 fc='red'))
             self.ax.add_patch(self.handle[1])  # Add the patch to the axes
+            self.flagInit = False
         else:
-            self.handle[1].xy = xy
+            self.handle[1].center = xy
 
 
 # Used see the animation from the command line
 if __name__ == "__main__":
 
     simAnimation = bobAnimation()    # Create Animate object
-    z = 1                             # Position of cart, m
-    theta = np.pi/4
+    z = 2                             # Position of cart, m
+    theta = np.pi/2
     simAnimation.draw_bob([z, theta])  # Draw the mass spring damper system
     #plt.show()
     # Keeps the program from closing until the user presses a button.
