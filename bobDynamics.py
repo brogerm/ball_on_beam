@@ -21,7 +21,7 @@ class bobDynamics:
         # that represents alpha*100 % of the parameter, i.e., alpha = 0.2, means that the parameter
         # may change by up to 20%.  A different parameter value is chosen every time the simulation
         # is run.
-        alpha = 0.2  # Uncertainty parameter
+        alpha = 0.0  # Uncertainty parameter
         self.m1 = P.m1 * (1+2*alpha*np.random.rand()-alpha)  # Mass of the ball, kg
         self.m2 = P.m2 * (1+2*alpha*np.random.rand()-alpha)  # Mass of the beam, kg
         self.length = P.length * (1+2*alpha*np.random.rand()-alpha)  # length of the beam, m
@@ -51,8 +51,11 @@ class bobDynamics:
         theta = state.item(1)
         zdot = state.item(2)
         thetadot = state.item(3)
-        zddot = 1/self.m1 * (F * np.sin(theta) - self.b * zdot + z * thetadot**2 - self.m1 * self.g * np.sin(theta))
-        thetaddot = 1/(self.m1 * z**2 + self.m2 * (self.length**2)/3) * (self.length * F * np.cos(theta) - self.b*thetadot - self.g * thetadot * np.cos(theta) * (self.m1 * z + self.m2 * self.length/2))
+        zddot = z * thetadot**2 - self.g * np.sin(theta)
+        thetaddot = 1/(self.m2 * self.length**2/3 + self.m1 * z**2) * (F * self.length * np.cos(theta) - 2 * self.m1 * z
+                                                                       * zdot * thetadot - self.m1 * self.g * z *
+                                                                       np.cos(theta) - self.m2 * self.g * self.length /
+                                                                       2 * np.cos(theta))
         # The equations of motion.
         x1dot = zdot
         x2dot = thetadot

@@ -53,8 +53,8 @@ class bobAnimation:
             self.handle[0].set_ydata(Y)
 
     def draw_ball(self, z, theta):
-        x = z * np.cos(theta) - self.ballD/1.5 * np.sin(theta)    # x coordinate of center
-        y = z * np.sin(theta) + self.ballD/1.5 * np.cos(theta)  # y coordinate of center
+        x = z * np.cos(theta) - self.ballD/1.75 * np.sin(theta)    # x coordinate of center
+        y = z * np.sin(theta) + self.ballD/1.75 * np.cos(theta)  # y coordinate of center
         xy = (x, y)  # Center of block
 
         # When the class is initialized, a Rectangular patch object will
