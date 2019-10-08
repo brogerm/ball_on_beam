@@ -25,7 +25,7 @@ while t < P.t_end:  # main simulation loop
     # Propagate dynamics in between plot samples
     t_next_plot = t + P.t_plot
     while t < t_next_plot:  # updates control and dynamics at faster simulation rate
-        F = fRef.square(t)
+        F = fRef.sin(t)
         # F = [0]
         bob.propagateDynamics(F)  # Propagate the dynamics
         t = t + P.Ts  # advance time by Ts
