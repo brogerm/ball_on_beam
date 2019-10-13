@@ -18,7 +18,7 @@ length = 0.5  # length of the beam
 height = 0.125   # width of the beam
 
 # Initial conditions
-z0 = length/2          # initial displacement (m)
+z0 = 3*length/4          # initial displacement (m)
 zdot0 = 0       # initial velocity (m/s)
 theta0 = 0      # initial angular position (rad)
 thetadot0 = 0   # initial angular velocity (rad/s)

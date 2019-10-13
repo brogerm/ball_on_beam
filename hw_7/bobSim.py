@@ -12,7 +12,7 @@ from bobDynamics import bobDynamics
 # instantiate reference input classes
 bob = bobDynamics()
 ctrl = bobController()
-reference = signalGenerator(amplitude=0.25, frequency=0.01)
+reference = signalGenerator(amplitude=0.5, frequency=0.1)
 
 # instantiate the simulation plots and animation
 dataPlot = plotData()
