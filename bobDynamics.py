@@ -21,7 +21,7 @@ class bobDynamics:
         # that represents alpha*100 % of the parameter, i.e., alpha = 0.2, means that the parameter
         # may change by up to 20%.  A different parameter value is chosen every time the simulation
         # is run.
-        alpha = 0.0  # Uncertainty parameter
+        alpha = 0.2  # Uncertainty parameter
         self.m1 = P.m1 * (1+2*alpha*np.random.rand()-alpha)  # Mass of the ball, kg
         self.m2 = P.m2 * (1+2*alpha*np.random.rand()-alpha)  # Mass of the beam, kg
         self.length = P.length * (1+2*alpha*np.random.rand()-alpha)  # length of the beam, m
