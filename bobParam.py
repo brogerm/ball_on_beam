@@ -12,13 +12,13 @@ d = 0.25       # diameter of the ball (m)
 # Physical parameters of the beam
 m2 = 2      # mass of the beam
 b = 0.0     # damping coefficient
-length = 0.5  # length of the beam
+length = 1.5  # length of the beam
 
 # Animation params
 height = 0.125   # width of the beam
 
 # Initial conditions
-z0 = 1*length/2          # initial displacement (m)
+z0 = 0.5          # initial displacement (m)
 zdot0 = 0       # initial velocity (m/s)
 theta0 = 0      # initial angular position (rad)
 thetadot0 = 0   # initial angular velocity (rad/s)
