@@ -73,6 +73,6 @@ print('kp_z: ', kp_z)
 print('kd_z: ', kd_z)
 
 # saturation limits
-F_max = 100                # Max Force, N
+F_max = 50                # Max Force, N
 theta_max = 30.0*np.pi/180.0  # Max theta, rads
 
