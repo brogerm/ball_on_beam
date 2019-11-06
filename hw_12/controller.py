@@ -38,8 +38,8 @@ class Controller:
         F_unsat = -self.K*x - self.ki*self.integrator
         F_sat = self.saturate(F_unsat)
 
-        if self.ki != 0:
-            self.integrator = self.integrator + self.Ts/self.ki * (F_sat - F_unsat)
+        if self.ki != 0.0 and abs(self.z_dot) < 0.01:
+            self.integrator = self.integrator + self.Ts / self.ki * (F_sat - F_unsat)
 
         return [F_sat.item(0)]
 

@@ -19,8 +19,8 @@ theta_max = 30.0*np.pi/180.0  # Max theta, rads
 #                 State Space
 ####################################################
 # tuning parameters
-tr_theta = 0.1    # rise time for angle
-tr_z = 1.5        # rise time for position
+tr_theta = 0.5    # rise time for angle
+tr_z = 0.9        # rise time for position
 zeta_z = 0.707  # damping ratio position
 zeta_th = 0.707  # damping ratio angle
 integrator_pole = -2.8
@@ -53,7 +53,7 @@ A1 = np.matrix([[0.0,  0.0, 1.0, 0.0, 0.0],
                [0.0,  0.0, 0.0, 1.0, 0.0],
                [0.0, -P.g, 0.0, 0.0, 0.0],
                [a1,   0.0, 0.0, 0.0, 0.0],
-               [1.0, 0.0, 0.0, 0.0, 0.0]])
+               [-1.0, 0.0, 0.0, 0.0, 0.0]])
 
 B1 = np.matrix([[0.0],
                [0.0],
